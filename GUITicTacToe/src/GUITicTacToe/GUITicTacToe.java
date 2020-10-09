@@ -13,7 +13,7 @@ public class GUITicTacToe {
 	JButton[][] button = new JButton[3][3];
 	Container center = new Container();
 	
-	public GUITicTacToe() {
+	public GUITicTacToe() { 
 		frame.setSize(400,400);
 		
 		frame.setLayout(new BorderLayout());
