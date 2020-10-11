@@ -23,16 +23,21 @@ public class GUITicTacToe implements ActionListener{
 	final int O_MOVE =2;
 	final int X_TURN = 0;
 	final int O_TURN = 1;
+	int xWins = 0;
+	int oWins = 0;
+	String xPlayerName = "X";
+	String oPlayerName = "O";
 	int turn = X_TURN;
 	Container center = new Container();
-	JLabel xName = new JLabel("X Win's: 0");
-	JLabel oName = new JLabel("O Win's: 0");
+	JLabel xLabel = new JLabel("X Win's: " + xWins);
+	JLabel oLabel = new JLabel("O Win's:  " + oWins);
 	JButton xChangeName = new JButton("Change X's Name.");
 	JButton oChangeName = new JButton("Change O's Name.");
 	JTextField xChangeField = new JTextField();
 	JTextField oChangeField = new JTextField();
 	Container north = new Container();
-	
+
+
 	
 	public GUITicTacToe() { 
 		frame.setSize(400,400);
@@ -49,8 +54,8 @@ public class GUITicTacToe implements ActionListener{
 		frame.add(center, BorderLayout.CENTER);
 		// North Container'
 		north.setLayout(new GridLayout(3,2));
-		north.add(xName);
-		north.add(oName);
+		north.add(xLabel);
+		north.add(oLabel);
 		north.add(xChangeName);
 		xChangeName.addActionListener(this);
 		north.add(oChangeName);
@@ -61,6 +66,7 @@ public class GUITicTacToe implements ActionListener{
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
+		
 	}
 	
 	public static void main(String[] args) {
@@ -82,23 +88,32 @@ public class GUITicTacToe implements ActionListener{
 							current.setText("X");
 							board[j][i] = X_MOVE;
 							turn = O_TURN;
+							current.setEnabled(false);
 						}
 						else if(turn == O_TURN) {
 							current.setText("O");
 							board[j][i] = O_MOVE;
 							turn = X_TURN;
+							current.setEnabled(false);
 						}
 						//check for wins and ties
 						if (checkWin(X_MOVE) == true) {
 							//X wins
 							System.out.println("X Won");
+							xWins++;
+							xLabel.setText(xPlayerName + " wins:" + xWins);
+							clearBoard();
 						}
 						else if (checkWin(O_MOVE)==true) {
 							//O wins
 							System.out.println("O Won");
+							oWins++;
+							oLabel.setText(oPlayerName + " wins:" + oWins);
+							clearBoard();
 						}
 						else if (checkTie() == true) {
 							//Its a tie
+							clearBoard();
 						}
 						
 					}
@@ -107,10 +122,12 @@ public class GUITicTacToe implements ActionListener{
 		}
 		if (gridButton == false) {
 			if (event.getSource().equals(xChangeName)== true) {
-				xChangeField.setText("X Change");
+				xPlayerName = xChangeField.getText();
+				xLabel.setText(xPlayerName + " wins:" + xWins);
 			}
 			else if (event.getSource().equals(oChangeName)== true) {
-				oChangeField.setText("O Change.");
+				oPlayerName = oChangeField.getText();
+				oLabel.setText(oPlayerName + " wins:" + oWins);
 			}
 		}
 		
@@ -153,6 +170,15 @@ public class GUITicTacToe implements ActionListener{
 			}
 		}
 		return true;
+	}
+	public void clearBoard() {
+		for (int a = 0; a <board.length; a++) {
+			for (int b= 0; b< board[0].length; b++) {
+				board[a][b] = BLANK;
+				button[a][b].setText("");
+			}
+		}
+		turn = X_TURN;
 	}
 
 }
