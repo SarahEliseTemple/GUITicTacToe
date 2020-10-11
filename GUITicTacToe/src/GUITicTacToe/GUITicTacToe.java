@@ -129,11 +129,22 @@ public class GUITicTacToe implements ActionListener{
 		if (gridButton == false) {
 			if (event.getSource().equals(xChangeName)== true) {
 				xPlayerName = xChangeField.getText();
-				xLabel.setText(xPlayerName + " wins:" + xWins);
+				if (xPlayerName.equals("")) {//This stops you if you dont enter anything.
+					xPlayerName = ("X ");
+				}
+				else {
+					xPlayerName = xChangeField.getText();
+					xLabel.setText(xPlayerName + " wins:" + xWins);
+				}
 			}
 			else if (event.getSource().equals(oChangeName)== true) {
 				oPlayerName = oChangeField.getText();
+				if (oPlayerName.equals("")) {
+					oPlayerName = ("O ");
+				}//This stops you if you dont enter anything. 
+				else {
 				oLabel.setText(oPlayerName + " wins:" + oWins);
+				}
 			}
 		}
 		
@@ -177,7 +188,7 @@ public class GUITicTacToe implements ActionListener{
 		}
 		return true;
 	}
-	public void clearBoard() {
+	public void clearBoard() {// This method will clear the board
 		JButton newCurrent;
 		for (int a = 0; a <board.length; a++) {
 			for (int b= 0; b< board[0].length; b++) {
