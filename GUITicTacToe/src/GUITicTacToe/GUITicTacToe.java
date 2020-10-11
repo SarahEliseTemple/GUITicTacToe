@@ -1,5 +1,10 @@
+/*
+ * Name:Sarah Temple
+ * Date: October 11 2020
+ * This game is my first GUI project where the user plays tictactoe and can change thier name and it keeps track of wins 
+ */
 package GUITicTacToe;
-
+//This is all of the things being imported
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -36,6 +41,7 @@ public class GUITicTacToe implements ActionListener{
 	JTextField xChangeField = new JTextField();
 	JTextField oChangeField = new JTextField();
 	Container north = new Container();
+	private JButton resetButton;
 
 
 	
@@ -46,7 +52,7 @@ public class GUITicTacToe implements ActionListener{
 		center.setLayout(new GridLayout(3,3));
 		for (int i = 0; i < button.length; i++) {
 			for (int j = 0; j < button[0].length; j++) {
-				button[j][i]= new JButton(j+""+i);
+				button[j][i]= new JButton();
 				center.add(button[j][i]);
 				button[j][i].addActionListener(this);
 			}
@@ -172,9 +178,13 @@ public class GUITicTacToe implements ActionListener{
 		return true;
 	}
 	public void clearBoard() {
+		JButton newCurrent;
 		for (int a = 0; a <board.length; a++) {
 			for (int b= 0; b< board[0].length; b++) {
+				newCurrent = button[a][b];
 				board[a][b] = BLANK;
+				newCurrent.setEnabled(true);
+				
 				button[a][b].setText("");
 			}
 		}
